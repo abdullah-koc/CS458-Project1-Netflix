@@ -3,6 +3,7 @@ import NetflixLogo from "./images/netflix_logo.png";
 import { makeStyles } from "@mui/styles";
 import LoginCard from "./components/LoginCard";
 import Grid from "@mui/material/Grid";
+import { db } from "./firebase";
 
 const useStyles = makeStyles({
   bg: {
