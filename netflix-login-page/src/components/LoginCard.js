@@ -156,13 +156,13 @@ const LoginCard = () => {
               value={phone}
               onChange={(e) => setPhone(e)}
               dropdownStyle={{
-                backgroundColor: "#454545",
+                backgroundColor: TextFieldBG1,
                 color: "#8C8C8C",
               }}
               buttonStyle={{
-                backgroundColor: "#454545",
-                color: "#454545",
-                borderColor: "#454545",
+                backgroundColor: TextFieldBG1,
+                color: TextFieldBG1,
+                borderColor: TextFieldBG1,
               }}
               inputStyle={{ width: -10, visibility: "hidden" }}
             />
