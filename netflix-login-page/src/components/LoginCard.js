@@ -5,7 +5,6 @@ import TextField from "@mui/material/TextField";
 import { Button, Stack } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import PhoneInput from "react-phone-number-input";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -61,10 +60,7 @@ const LoginCard = () => {
     "Please enter a valid email or phone number."
   );
 
-  const [value, setValue] = useState();
-
   useEffect(() => {
-    console.log(value);
     if (mailOrPhone.length === 0) {
       setIsMailPhoneInfoShown(false);
     } else if (mailOrPhone.length > 0) {
@@ -109,11 +105,6 @@ const LoginCard = () => {
 
   return (
     <div className={classes.cardContainer}>
-      <PhoneInput
-        placeholder="Enter phone number"
-        value={value}
-        onChange={setValue}
-      />
       <Grid container direction="column">
         <Grid item xs={12}>
           <h1 style={{ fontSize: "32px" }}>Sign In</h1>
