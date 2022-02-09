@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -47,6 +49,12 @@ const useStyles = makeStyles({
     marginLeft: 6,
     color: "#e87c03",
   },
+  checkbox: {
+    color: "#737373"
+  },
+  outlineCheckbox: {
+    color: "#737373"
+  }
 });
 
 const LoginCard = () => {
@@ -238,8 +246,8 @@ const LoginCard = () => {
               control={
                 <div style={{ display: "inline-block", margin: 0, padding: 0 }}>
                   <Checkbox
-                    iconstyle={{ fill: "white" }}
-                    style={{ color: "#333" }}
+                      icon={<CheckBoxOutlineBlankIcon className={classes.outlineCheckbox}/>}
+                      checkedIcon={<CheckBoxIcon className={classes.checkbox}/>}
                   />
                 </div>
               }
