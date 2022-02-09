@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -47,6 +49,12 @@ const useStyles = makeStyles({
     marginLeft: 6,
     color: "#e87c03",
   },
+  checkbox: {
+    color: "#737373"
+  },
+  outlineCheckbox: {
+    color: "#737373"
+  }
 });
 
 const LoginCard = () => {
@@ -74,7 +82,7 @@ const LoginCard = () => {
     "Please enter a valid email or phone number."
   );
 
-  const [phone, setPhone] = useState("");
+  const [phoneCode, setPhoneCode] = useState("");
 
   useEffect(() => {
     if (mailOrPhone.length === 0) {
@@ -119,6 +127,21 @@ const LoginCard = () => {
     }
   }, [password]);
 
+  const sendLoginInfoToDB = () => {
+    var tempInfo = "";
+    var isPhone = false;
+    if (/^-?\d+$/.test(mailOrPhone)) {
+      tempInfo = phoneCode + mailOrPhone;
+      isPhone = true;
+    }
+
+    if (!isPhone) {
+      //send mail information to DB (mail: mailOrPhone, PW: password)
+    } else {
+      //send phone number information to DB (phone: tempInfo, PW: password)
+    }
+  };
+
   return (
     <div className={classes.cardContainer}>
       <Grid container direction="column">
@@ -153,8 +176,8 @@ const LoginCard = () => {
             <PhoneInput
               style={{ position: "absolute", left: "270px", top: "10px" }}
               country={"tr"}
-              value={phone}
-              onChange={(e) => setPhone(e)}
+              value={phoneCode}
+              onChange={(e) => setPhoneCode(e)}
               dropdownStyle={{
                 backgroundColor: TextFieldBG1,
                 color: "#8C8C8C",
@@ -238,8 +261,8 @@ const LoginCard = () => {
               control={
                 <div style={{ display: "inline-block", margin: 0, padding: 0 }}>
                   <Checkbox
-                    iconstyle={{ fill: "white" }}
-                    style={{ color: "#333" }}
+                      icon={<CheckBoxOutlineBlankIcon className={classes.outlineCheckbox}/>}
+                      checkedIcon={<CheckBoxIcon className={classes.checkbox}/>}
                   />
                 </div>
               }
