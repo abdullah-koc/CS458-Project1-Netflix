@@ -35,7 +35,9 @@ function App() {
       <div className={classes.bg}>
       <Grid container direction={"column"}>
         <Grid item xs={1} className={classes.netflixLogoContainer}>
-          <img src={NetflixLogo} style={{ width: "176px" }} alt="" />
+          <a href="/#">
+            <img src={NetflixLogo} style={{ width: "176px" }} alt="" />
+          </a>
         </Grid>
         <Grid item xs={8} className={classes.loginContainer}>
           <div>
