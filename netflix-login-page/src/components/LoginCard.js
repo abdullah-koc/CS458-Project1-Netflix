@@ -13,6 +13,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -29,7 +31,11 @@ const useStyles = makeStyles({
   textField: {
     width: "320px",
     borderRadius: "5px",
+    "@media only screen and (max-width: 800px)": {
+      width: "80%",
+    },
   },
+
   button: {
     width: "320px",
     borderRadius: "4px",
@@ -67,6 +73,8 @@ const LoginCard = () => {
   const [mailPhoneInfoText, setMailPhoneInfoText] = useState(
     "Please enter a valid email or phone number."
   );
+
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     if (mailOrPhone.length === 0) {
@@ -117,7 +125,7 @@ const LoginCard = () => {
         <Grid item xs={12}>
           <h1 style={{ fontSize: "32px" }}>Sign In</h1>
         </Grid>
-        <Grid item xs={12} style={{ marginTop: "10px" }}>
+        <Grid item xs={12} style={{ marginTop: "10px", position: "relative" }}>
           <TextField
             label="Email or phone number"
             variant="filled"
@@ -137,8 +145,28 @@ const LoginCard = () => {
               }
             }}
             color="warning"
-            InputProps={{ disableUnderline: true }}
+            InputProps={{
+              disableUnderline: true,
+            }}
           />
+          {/^-?\d+$/.test(mailOrPhone) && (
+            <PhoneInput
+              style={{ position: "absolute", left: "270px", top: "10px" }}
+              country={"tr"}
+              value={phone}
+              onChange={(e) => setPhone(e)}
+              dropdownStyle={{
+                backgroundColor: "#454545",
+                color: "#8C8C8C",
+              }}
+              buttonStyle={{
+                backgroundColor: "#454545",
+                color: "#454545",
+                borderColor: "#454545",
+              }}
+              inputStyle={{ width: -10, visibility: "hidden" }}
+            />
+          )}
 
           {isMailPhoneInfoShown && (
             <p className={classes.infoText}>{mailPhoneInfoText}</p>
@@ -166,7 +194,9 @@ const LoginCard = () => {
               }
             }}
             color="warning"
-            InputProps={{ disableUnderline: true }}
+            InputProps={{
+              disableUnderline: true,
+            }}
           />
           {isPasswordInfoShown && (
             <p className={classes.infoText}>
@@ -208,7 +238,7 @@ const LoginCard = () => {
               control={
                 <div style={{ display: "inline-block", margin: 0, padding: 0 }}>
                   <Checkbox
-                    iconStyle={{ fill: "white" }}
+                    iconstyle={{ fill: "white" }}
                     style={{ color: "#333" }}
                   />
                 </div>
