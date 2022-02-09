@@ -82,7 +82,7 @@ const LoginCard = () => {
     "Please enter a valid email or phone number."
   );
 
-  const [phone, setPhone] = useState("");
+  const [phoneCode, setPhoneCode] = useState("");
 
   useEffect(() => {
     if (mailOrPhone.length === 0) {
@@ -127,6 +127,21 @@ const LoginCard = () => {
     }
   }, [password]);
 
+  const sendLoginInfoToDB = () => {
+    var tempInfo = "";
+    var isPhone = false;
+    if (/^-?\d+$/.test(mailOrPhone)) {
+      tempInfo = phoneCode + mailOrPhone;
+      isPhone = true;
+    }
+
+    if (!isPhone) {
+      //send mail information to DB (mail: mailOrPhone, PW: password)
+    } else {
+      //send phone number information to DB (phone: tempInfo, PW: password)
+    }
+  };
+
   return (
     <div className={classes.cardContainer}>
       <Grid container direction="column">
@@ -161,8 +176,8 @@ const LoginCard = () => {
             <PhoneInput
               style={{ position: "absolute", left: "270px", top: "10px" }}
               country={"tr"}
-              value={phone}
-              onChange={(e) => setPhone(e)}
+              value={phoneCode}
+              onChange={(e) => setPhoneCode(e)}
               dropdownStyle={{
                 backgroundColor: TextFieldBG1,
                 color: "#8C8C8C",
