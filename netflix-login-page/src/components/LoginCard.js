@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import {Button, Stack} from "@mui/material";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -19,6 +20,10 @@ const useStyles = makeStyles({
     width: "320px",
     borderRadius: "5px",
   },
+  button: {
+    width: "320px",
+    borderRadius: "4px",
+  }
 });
 
 const LoginCard = () => {
@@ -32,7 +37,7 @@ const LoginCard = () => {
 
   return (
     <div className={classes.cardContainer}>
-      <Grid container style={{ display: "flex", alignItems: "center" }}>
+      <Grid container direction="column">
         <Grid item xs={12}>
           <h1 style={{ fontSize: "32px" }}>Sign In</h1>
         </Grid>
@@ -65,6 +70,21 @@ const LoginCard = () => {
             onBlur={() => setTextFieldBG2("#333333")}
             color="warning"
           />
+        </Grid>
+
+        <Grid item xs={12} justifyContent="center" alignItems="center" marginTop="40px">
+          <Button
+              className={classes.button}
+              style={{
+                textTransform: 'none',
+                backgroundColor: "#e50914",
+                fontSize: "16px",
+                fontWeight: "700",
+                padding:"10px"
+              }}
+              variant="contained">
+            Sign In
+          </Button>
         </Grid>
       </Grid>
     </div>
