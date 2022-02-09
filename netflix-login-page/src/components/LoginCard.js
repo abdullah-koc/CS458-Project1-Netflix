@@ -4,7 +4,15 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import {Avatar, Button, Checkbox, FormControlLabel, Link, Stack, Typography} from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -34,7 +42,6 @@ const useStyles = makeStyles({
     color: "#e87c03",
   },
 });
-
 
 const LoginCard = () => {
   const classes = useStyles();
@@ -117,7 +124,10 @@ const LoginCard = () => {
             onChange={(e) => setMailOrPhone(e.target.value)}
             className={classes.textField}
             sx={{ input: { color: "white" }, label: { color: "#8C8C8C" } }}
-            style={{ backgroundColor: TextFieldBG1 }}
+            style={{
+              backgroundColor: TextFieldBG1,
+              borderBottom: isMailPhoneInfoShown ? "2px solid #e87c03" : "",
+            }}
             value={mailOrPhone}
             onFocus={() => setTextFieldBG1("#454545")}
             onBlur={() => {
@@ -127,6 +137,7 @@ const LoginCard = () => {
               }
             }}
             color="warning"
+            InputProps={{ disableUnderline: true }}
           />
 
           {isMailPhoneInfoShown && (
@@ -143,7 +154,10 @@ const LoginCard = () => {
             value={password}
             className={classes.textField}
             sx={{ input: { color: "white" }, label: { color: "#8C8C8C" } }}
-            style={{ backgroundColor: TextFieldBG2 }}
+            style={{
+              backgroundColor: TextFieldBG2,
+              borderBottom: isPasswordInfoShown ? "2px solid #e87c03" : "",
+            }}
             onFocus={() => setTextFieldBG2("#454545")}
             onBlur={() => {
               setTextFieldBG2("#333333");
@@ -185,57 +199,104 @@ const LoginCard = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Stack direction="row"
-                 justifyContent="space-between"
-                 alignItems="center">
-              <FormControlLabel
-                  control={ <div style={{ display: "inline-block", margin: 0, padding: 0 }}>
-                    <Checkbox iconStyle={{fill: 'white'}} style={{color: "#333"}}/>
-                  </div>}
-                  label={
-                    <Typography sx={{ color: "#b3b3b3", fontSize: 13, fontWeight: 500, marginLeft: "-6px" }}>
-                      Remember me
-                    </Typography>
-                  } />
-            <Typography sx={{ color: "#b3b3b3", fontSize: 13, fontWeight: 500}}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <FormControlLabel
+              control={
+                <div style={{ display: "inline-block", margin: 0, padding: 0 }}>
+                  <Checkbox
+                    iconStyle={{ fill: "white" }}
+                    style={{ color: "#333" }}
+                  />
+                </div>
+              }
+              label={
+                <Typography
+                  sx={{
+                    color: "#b3b3b3",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    marginLeft: "-6px",
+                  }}
+                >
+                  Remember me
+                </Typography>
+              }
+            />
+            <Typography
+              sx={{ color: "#b3b3b3", fontSize: 13, fontWeight: 500 }}
+            >
               Need help?
             </Typography>
           </Stack>
         </Grid>
 
-        <Grid item xs={12} style={{marginTop: "32px"}}>
-          <Button sx={{color: "#737373",
-            fontSize: 13,
-            fontWeight: 500,
-            textTransform: "none",
-            padding:0.5,
-            minHeight: 0,
-            minWidth: 0}}
-                  startIcon={<Avatar variant="square" style={{width: "20px", height: "20px"}}
-                                     src="https://assets.nflxext.com/ffe/siteui/login/images/FB-f-Logo__blue_57.png"/>}>
+        <Grid item xs={12} style={{ marginTop: "32px" }}>
+          <Button
+            sx={{
+              color: "#737373",
+              fontSize: 13,
+              fontWeight: 500,
+              textTransform: "none",
+              padding: 0.5,
+              minHeight: 0,
+              minWidth: 0,
+            }}
+            startIcon={
+              <Avatar
+                variant="square"
+                style={{ width: "20px", height: "20px" }}
+                src="https://assets.nflxext.com/ffe/siteui/login/images/FB-f-Logo__blue_57.png"
+              />
+            }
+          >
             Login with Facebook
           </Button>
         </Grid>
 
-        <Grid item xs={12} style={{marginTop: "8px"}}>
-          <Stack direction="row"
-                 justifyContent="flex-start"
-                 spacing={0.8}
-                 alignItems="center">
-            <Typography sx={{ color: "#737373", fontSize: 16, fontWeight: 500}}>
+        <Grid item xs={12} style={{ marginTop: "8px" }}>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            spacing={0.8}
+            alignItems="center"
+          >
+            <Typography
+              sx={{ color: "#737373", fontSize: 16, fontWeight: 500 }}
+            >
               New to Netflix?
             </Typography>
-            <Link href="/" underline="none" sx={{ color: "#fff", fontSize: 16, fontWeight: 500}}>
+            <Link
+              href="/"
+              underline="none"
+              sx={{ color: "#fff", fontSize: 16, fontWeight: 500 }}
+            >
               Sign up now.
             </Link>
           </Stack>
         </Grid>
 
-        <Grid item xs={12} style={{marginTop: "8px"}}>
-          <Typography display="inline" sx={{ color: "#8c8c8c", fontSize: 13, textAlign: "left", lineHeight: "0"}}>
-            This page is protected by Google reCAPTCHA to ensure you're not a bot.
+        <Grid item xs={12} style={{ marginTop: "8px" }}>
+          <Typography
+            display="inline"
+            sx={{
+              color: "#8c8c8c",
+              fontSize: 13,
+              textAlign: "left",
+              lineHeight: "0",
+            }}
+          >
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot.
           </Typography>
-          <Link href="/" underline="none" sx={{ fontSize: 13, marginLeft: "4px"}}>
+          <Link
+            href="/"
+            underline="none"
+            sx={{ fontSize: 13, marginLeft: "4px" }}
+          >
             Learn more.
           </Link>
         </Grid>
