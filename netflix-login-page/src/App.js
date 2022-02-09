@@ -7,8 +7,9 @@ import { db } from "./firebase";
 
 const useStyles = makeStyles({
   bg: {
-    width: "100%",
+    width:"100%",
     minHeight: "140vh",
+    backgroundSize: "cover",
     backgroundImage: `url(${BackgroundImage})`,
     backgroundRepeat: "no-repeat",
     color: "white",
@@ -30,7 +31,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   return (
-    <div className={classes.bg}>
+    
+      <div className={classes.bg}>
       <Grid container direction={"column"}>
         <Grid item xs={1} className={classes.netflixLogoContainer}>
           <img src={NetflixLogo} style={{ width: "176px" }} alt="" />
@@ -45,6 +47,7 @@ function App() {
         </Grid>
       </Grid>
     </div>
+    
   );
 }
 
