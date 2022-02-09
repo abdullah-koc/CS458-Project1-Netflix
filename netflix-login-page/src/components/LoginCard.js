@@ -17,7 +17,7 @@ import {
 const useStyles = makeStyles({
   cardContainer: {
     background: "rgba(0,0,0,0.75)",
-    height: "680px",
+    height: "550px",
     width: "314px",
     "@media only screen and (max-width: 800px)": {
       width: "100vw",
