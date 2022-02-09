@@ -2,6 +2,7 @@ import BackgroundImage from "./images/background.jpg";
 import NetflixLogo from "./images/netflix_logo.png";
 import { makeStyles } from "@mui/styles";
 import LoginCard from "./components/LoginCard";
+import InformationCard from "./components/InformationCard";
 import Grid from "@mui/material/Grid";
 import { db } from "./firebase";
 
@@ -43,7 +44,9 @@ function App() {
           </div>
         </Grid>
         <Grid item xs={3} style={{ minHeight: "40vh" }}>
-          543678
+        <div>
+            <InformationCard />
+          </div>
         </Grid>
       </Grid>
     </div>

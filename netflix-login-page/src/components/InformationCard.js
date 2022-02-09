@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
-import { Button, Stack } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -26,56 +34,102 @@ const InformationCard = () => {
 
   return (
     <div className={classes.cardContainer}>
-      <Grid container>
-        <Grid item xs={12}
-          style={{
-            color: "#454545",
-            fontSize: "18px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          Questions? Call 0850-390-7444
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={3}
-              style={{
-                marginTop: "30px",
-                color: "#454545",
-                fontSize: "14px",
-                textTransform: 'none',
-              }}>
-              FAQ
-              <Grid item xs={3}
-                style={{
-                  marginTop: "30px",
-                  color: "#454545",
-                  fontSize: "14px",
-                  textTransform: 'none',
-                }}>
-                Help Center
-              </Grid>
-              <Grid item xs={3}
-                style={{
-                  marginTop: "30px",
-                  color: "#454545",
-                  fontSize: "14px",
-                  textTransform: 'none',
-                }}>
-                Terms of Use
-              </Grid>
+      <Grid container
+        style={{
+          color: "#627575",
+          fontSize: 16,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingLeft: "16%",
+          paddingRight: "17%",
 
-              <Grid item xs={3}
-                style={{
-                  marginTop: "30px",
-                  color: "#454545",
-                  fontSize: "14px",
-                  textTransform: 'none',
-                }}>
-              </Grid>
+        }}>
+        <Grid item xs={12}>
+          Questions? Call <Link
+            href="/"
+            underline="hover"
+            sx={{ color: "#627575", fontSize: 16, fontWeight: 500 }}
+          >
+            0850-390-7444
+          </Link>
+        </Grid>
+        <Grid item xs={12} style={{
+          color: "#454545",
+          fontSize: "18px",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: "1%",
+        }}>
+          <Stack
+            direction="row"
+            paddingTop="2%"
+            justifyContent="flex-start"
+            spacing={3.5}
+            alignItems="center"
+
+          >
+            <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, paddingRight: "15%", marginBottom:"2%"
+
+              }}
+            >
+              FAQ
+            </Link>
+            <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, paddingRight: "15%", marginBottom:"2%"
+
+              }}
+            >
+              Help Center
+            </Link>
+            <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, paddingRight: "15%", marginBottom:"2%"
+
+              }}
+            >
+              Terms of Use
+            </Link>
+            <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, paddingRight: "15%", marginBottom:"2%"
+
+              }}
+            >
               Privacy
-            </Grid>
-          </Grid>
+            </Link>
+
+          </Stack>
+          <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, paddingRight: "10%", marginBottom:"2%"
+
+              }}
+            >
+            Cookie Preferences
+          </Link>
+          <Link
+              href="/"
+              underline="hover"
+              sx={{
+                color: "#627575", fontSize: 13, fontWeight: 500, marginBottom:"2%"
+
+              }}
+            >
+            Corporate Information
+          </Link>
         </Grid>
 
         <Grid item xs={12} justifyContent="center" alignItems="center" marginTop="40px">
@@ -85,7 +139,7 @@ const InformationCard = () => {
               textTransform: 'none',
               fontSize: "16px",
               fontWeight: "100",
-              padding: "10px"
+              width: "13%",
             }}
             variant="contained">
             Language
