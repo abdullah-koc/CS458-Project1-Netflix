@@ -4,11 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {SnackbarProvider} from "notistack";
-import {Slide} from "@mui/material";
+import {IconButton, Slide} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+
+const notistackRef = React.createRef();
+const onClickDismiss = key => () => {
+    notistackRef.current.closeSnackbar(key);
+}
 
 ReactDOM.render(
     <React.StrictMode>
         <SnackbarProvider
+            ref={notistackRef}
+            action={(key) => (
+                <IconButton color="primary" onClick={onClickDismiss(key)} component="span">
+                    <CloseIcon style={{ color: 'white' }}/>
+                </IconButton>
+            )}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'center',
