@@ -36,7 +36,7 @@ const LoginCard = () => {
     "Please enter a valid email or phone number."
   );
 
-  const [phoneCode, setPhoneCode] = useState("");
+  const [phoneCode, setPhoneCode] = useState("90");
 
   useEffect(() => {
     if (mailOrPhone.length === 0) {
@@ -95,7 +95,7 @@ const LoginCard = () => {
       dbQuery = query(usersRef, where("mail", "==", mailOrPhone), where("password", "==", password));
     } else {
       //send phone number information to DB (phone: tempInfo, PW: password)
-      dbQuery = query(usersRef, where("phonenumber", "==", tempInfo), where("password", "==", password));
+      dbQuery = query(usersRef, where("phone", "==", tempInfo), where("password", "==", password));
     }
 
     const querySnapshot = await getDocs(dbQuery);
@@ -222,7 +222,6 @@ const LoginCard = () => {
             }}
             variant="contained"
             onClick={() => {
-              setIsPasswordInfoShown(true);
               sendLoginInfoToDB();
             }}
           >
