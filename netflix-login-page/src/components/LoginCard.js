@@ -19,10 +19,17 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { query, where } from "firebase/firestore";
 import {useSnackbar} from "notistack";
+import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+
 
 const LoginCard = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const provider = new FacebookAuthProvider();
+
+  provider.setCustomParameters({
+    'display': 'popup'
+  });
 
   const [TextFieldBG1, setTextFieldBG1] = useState("#333333");
   const [TextFieldBG2, setTextFieldBG2] = useState("#333333");
@@ -106,17 +113,36 @@ const LoginCard = () => {
     if (querySnapshot.size > 0) {
       // login successful
       enqueueSnackbar('Login successful!', {
-        variant: "success"
+        variant: "success",
+        preventDuplicate: true
       });
     } else {
       // wrong credentials
       enqueueSnackbar('Login failed! Please check your credentials.', {
-        variant: "error"
+        variant: "error",
+        preventDuplicate: true
       });
     }
-
-
   };
+
+  const loginWithFacebook = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+          // The signed-in user info.
+          const user = result.user;
+          enqueueSnackbar(`Login successful! Welcome, ${user.displayName}`, {
+            variant: "success",
+            preventDuplicate: true
+          });
+        })
+        .catch(() => {
+          enqueueSnackbar(`An error occurred during Facebook login!`, {
+            variant: "error",
+            preventDuplicate: true
+          });
+        });
+  }
 
   return (
     <div className={classes.cardContainer}>
@@ -283,6 +309,7 @@ const LoginCard = () => {
                 src="https://assets.nflxext.com/ffe/siteui/login/images/FB-f-Logo__blue_57.png"
               />
             }
+            onClick={() => loginWithFacebook()}
           >
             Login with Facebook
           </Button>
