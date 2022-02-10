@@ -17,6 +17,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { query, where } from "firebase/firestore";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -127,18 +128,31 @@ const LoginCard = () => {
     }
   }, [password]);
 
-  const sendLoginInfoToDB = () => {
+  const sendLoginInfoToDB = async() => {
+    const usersRef = collection(db, "users");
     var tempInfo = "";
     var isPhone = false;
     if (/^-?\d+$/.test(mailOrPhone)) {
       tempInfo = phoneCode + mailOrPhone;
       isPhone = true;
     }
-
+  
     if (!isPhone) {
-      //send mail information to DB (mail: mailOrPhone, PW: password)
+      console.log( mailOrPhone+  ' ' + password)
+      const q1 = query(usersRef, where("mail", "==", mailOrPhone), where("password", "==", password));
+      const querySnapshot = await getDocs(q1);
+      querySnapshot.forEach((doc) => {
+          console.log(doc.id, ' => ', doc.data());
+      });
+
     } else {
       //send phone number information to DB (phone: tempInfo, PW: password)
+      console.log(  +tempInfo +  ' ' + password)
+      const q1 = query(usersRef, where("phonenumber", "==", tempInfo), where("password", "==", password));
+      const querySnapshot = await getDocs(q1);
+      querySnapshot.forEach((doc) => {
+          console.log(doc.id, ' => ', doc.data());
+      });
     }
   };
 
@@ -245,7 +259,10 @@ const LoginCard = () => {
               padding: "10px",
             }}
             variant="contained"
-            onClick={() => setIsPasswordInfoShown(true)}
+            onClick={() => {
+              setIsPasswordInfoShown(true)
+               sendLoginInfoToDB()
+            }}
           >
             Sign In
           </Button>
