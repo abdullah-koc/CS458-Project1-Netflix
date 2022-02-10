@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-import { useStyles } from "../styles/LoginCardStyles";
-import {
-  Avatar,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "../firebase";
+import {useStyles} from "../styles/LoginCardStyles";
+import {Avatar, Button, Checkbox, FormControlLabel, Link, Stack, Typography,} from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { query, where } from "firebase/firestore";
 import {useSnackbar} from "notistack";
-import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import {FacebookAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
 
 
 const LoginCard = () => {
@@ -309,7 +300,9 @@ const LoginCard = () => {
                 src="https://assets.nflxext.com/ffe/siteui/login/images/FB-f-Logo__blue_57.png"
               />
             }
-            onClick={() => loginWithFacebook()}
+            onClick={() => {
+              // loginWithFacebook();
+            }}
           >
             Login with Facebook
           </Button>
