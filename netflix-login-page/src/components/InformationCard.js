@@ -1,33 +1,11 @@
-import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import {
-  Avatar,
   Button,
-  Checkbox,
-  FormControlLabel,
   Link,
-  Stack,
-  Typography,
+  Stack
 } from "@mui/material";
-
-const useStyles = makeStyles({
-  cardContainer: {
-    background: "rgba(0,0,0,0.75)",
-    height: "200px",
-    width: "100%",
-    "@media only screen and (max-width: 800px)": {
-      width: "100vw",
-    },
-    padding: "68px",
-    paddingTop: "38px",
-    borderRadius: "5px",
-  },
-  button: {
-    width: "320px",
-    borderRadius: "4px",
-  }
-});
+import {useStyles} from "../styles/InformationCardStyles";
 
 const InformationCard = () => {
   const classes = useStyles();

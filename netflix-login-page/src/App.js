@@ -1,33 +1,8 @@
-import BackgroundImage from "./images/background.jpg";
 import NetflixLogo from "./images/netflix_logo.png";
-import { makeStyles } from "@mui/styles";
 import LoginCard from "./components/LoginCard";
 import InformationCard from "./components/InformationCard";
 import Grid from "@mui/material/Grid";
-import { db } from "./firebase";
-
-const useStyles = makeStyles({
-  bg: {
-    width:"100%",
-    minHeight: "140vh",
-    backgroundSize: "cover",
-    backgroundImage: `url(${BackgroundImage})`,
-    backgroundRepeat: "no-repeat",
-    color: "white",
-    "@media only screen and (max-width: 800px)": {
-      background: "black",
-    },
-  },
-  netflixLogoContainer: {
-    minHeight: "12vh",
-    padding: "21px 0px 12px 42px",
-  },
-  loginContainer: {
-    minHeight: "88vh",
-    display: "flex",
-    justifyContent: "center",
-  },
-});
+import {useStyles} from "./styles/AppStyles";
 
 function App() {
   const classes = useStyles();

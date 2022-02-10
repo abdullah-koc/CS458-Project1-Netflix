@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { useStyles } from "../styles/LoginCardStyles";
 import {
   Avatar,
   Button,
@@ -18,58 +18,11 @@ import "react-phone-input-2/lib/style.css";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { query, where } from "firebase/firestore";
-
-const useStyles = makeStyles({
-  cardContainer: {
-    background: "rgba(0,0,0,0.75)",
-    height: "550px",
-    width: "314px",
-    "@media only screen and (max-width: 800px)": {
-      width: "100vw",
-    },
-    padding: "68px",
-    paddingTop: "38px",
-    borderRadius: "5px",
-  },
-  textField: {
-    width: "320px",
-    borderRadius: "5px",
-    "@media only screen and (max-width: 800px)": {
-      width: "80%",
-    },
-  },
-
-  button: {
-    width: "320px",
-    borderRadius: "4px",
-  },
-  infoText: {
-    fontSize: 13,
-    margin: 0,
-    marginTop: 8,
-    marginLeft: 6,
-    color: "#e87c03",
-  },
-  checkbox: {
-    color: "#737373"
-  },
-  outlineCheckbox: {
-    color: "#737373"
-  }
-});
+import {useSnackbar} from "notistack";
 
 const LoginCard = () => {
   const classes = useStyles();
-
-  async function get() {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().mail}`);
-    });
-  }
-  useEffect(() => {
-    get();
-  }, []);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [TextFieldBG1, setTextFieldBG1] = useState("#333333");
   const [TextFieldBG2, setTextFieldBG2] = useState("#333333");
@@ -130,30 +83,39 @@ const LoginCard = () => {
 
   const sendLoginInfoToDB = async() => {
     const usersRef = collection(db, "users");
-    var tempInfo = "";
-    var isPhone = false;
+    let dbQuery;
+    let tempInfo = "";
+    let isPhone = false;
     if (/^-?\d+$/.test(mailOrPhone)) {
       tempInfo = phoneCode + mailOrPhone;
       isPhone = true;
     }
   
     if (!isPhone) {
-      console.log( mailOrPhone+  ' ' + password)
-      const q1 = query(usersRef, where("mail", "==", mailOrPhone), where("password", "==", password));
-      const querySnapshot = await getDocs(q1);
-      querySnapshot.forEach((doc) => {
-          console.log(doc.id, ' => ', doc.data());
-      });
-
+      dbQuery = query(usersRef, where("mail", "==", mailOrPhone), where("password", "==", password));
     } else {
       //send phone number information to DB (phone: tempInfo, PW: password)
-      console.log(  +tempInfo +  ' ' + password)
-      const q1 = query(usersRef, where("phonenumber", "==", tempInfo), where("password", "==", password));
-      const querySnapshot = await getDocs(q1);
-      querySnapshot.forEach((doc) => {
-          console.log(doc.id, ' => ', doc.data());
+      dbQuery = query(usersRef, where("phonenumber", "==", tempInfo), where("password", "==", password));
+    }
+
+    const querySnapshot = await getDocs(dbQuery);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, ' => ', doc.data());
+    });
+
+    if (querySnapshot.size > 0) {
+      // login successful
+      enqueueSnackbar('Login successful!', {
+        variant: "success"
+      });
+    } else {
+      // wrong credentials
+      enqueueSnackbar('Login failed! Please check your credentials.', {
+        variant: "error"
       });
     }
+
+
   };
 
   return (
@@ -260,8 +222,8 @@ const LoginCard = () => {
             }}
             variant="contained"
             onClick={() => {
-              setIsPasswordInfoShown(true)
-               sendLoginInfoToDB()
+              setIsPasswordInfoShown(true);
+              sendLoginInfoToDB();
             }}
           >
             Sign In
