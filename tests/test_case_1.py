@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
+# Test Case Description --> User logs in with correct e-mail and password
 s = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=s)
 driver.implicitly_wait(5)
