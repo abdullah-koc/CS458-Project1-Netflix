@@ -2,13 +2,12 @@ import NetflixLogo from "./images/netflix_logo.png";
 import LoginCard from "./components/LoginCard";
 import InformationCard from "./components/InformationCard";
 import Grid from "@mui/material/Grid";
-import {useStyles} from "./styles/AppStyles";
+import { useStyles } from "./styles/AppStyles";
 
 function App() {
   const classes = useStyles();
   return (
-    
-      <div className={classes.bg}>
+    <div className={classes.bg}>
       <Grid container direction={"column"}>
         <Grid item xs={1} className={classes.netflixLogoContainer}>
           <a href="/#">
@@ -21,13 +20,12 @@ function App() {
           </div>
         </Grid>
         <Grid item xs={3} style={{ minHeight: "40vh" }}>
-        <div>
+          <div>
             <InformationCard />
           </div>
         </Grid>
       </Grid>
     </div>
-    
   );
 }
 
