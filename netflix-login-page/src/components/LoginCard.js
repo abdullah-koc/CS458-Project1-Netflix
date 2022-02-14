@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {db} from "../firebase";
 import {useStyles} from "../styles/LoginCardStyles";
 import {Avatar, Button, Checkbox, FormControlLabel, Link, Stack, Typography,} from "@mui/material";
 import PhoneInput from "react-phone-input-2";
@@ -11,6 +9,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {useSnackbar} from "notistack";
 import {FacebookAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
+import {sendLoginInfoToDB} from "../services/FirebaseRemotingService";
 
 
 const LoginCard = () => {
@@ -79,41 +78,22 @@ const LoginCard = () => {
         }
     }, [password]);
 
-    const sendLoginInfoToDB = async () => {
-        const usersRef = collection(db, "users");
-        let dbQuery;
-        let tempInfo = "";
-        let isPhone = false;
-        if (/^-?\d+$/.test(mailOrPhone)) {
-            tempInfo = phoneCode + mailOrPhone;
-            isPhone = true;
-        }
-
-        if (!isPhone) {
-            dbQuery = query(usersRef, where("mail", "==", mailOrPhone), where("password", "==", password));
-        } else {
-            //send phone number information to DB (phone: tempInfo, PW: password)
-            dbQuery = query(usersRef, where("phone", "==", tempInfo), where("password", "==", password));
-        }
-
-        const querySnapshot = await getDocs(dbQuery);
-        querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
-        });
-
-        if (querySnapshot.size > 0) {
-            // login successful
-            enqueueSnackbar('Login successful!', {
-                variant: "success",
-                preventDuplicate: true
-            });
-        } else {
-            // wrong credentials
-            enqueueSnackbar('Login failed! Please check your credentials.', {
-                variant: "error",
-                preventDuplicate: true
-            });
-        }
+    const loginWithFirebase = async () => {
+        sendLoginInfoToDB(mailOrPhone, phoneCode, password).then((querySnapshot) => {
+            if (querySnapshot.size > 0) {
+                // login successful
+                enqueueSnackbar('Login successful!', {
+                    variant: "success",
+                    preventDuplicate: true
+                });
+            } else {
+                // wrong credentials
+                enqueueSnackbar('Login failed! Please check your credentials.', {
+                    variant: "error",
+                    preventDuplicate: true
+                });
+            }
+        })
     };
 
     const loginWithFacebook = () => {
@@ -242,7 +222,7 @@ const LoginCard = () => {
                         }}
                         variant="contained"
                         onClick={() => {
-                            sendLoginInfoToDB();
+                            loginWithFirebase();
                         }}
                     >
                         Sign In
