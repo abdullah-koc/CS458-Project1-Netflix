@@ -11,7 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 s = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=s)
-driver.implicitly_wait(1000)
+driver.implicitly_wait(60)
 driver.maximize_window()
 driver.get('https://localhost:3000')
 
