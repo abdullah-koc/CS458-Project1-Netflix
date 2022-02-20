@@ -267,6 +267,7 @@ const LoginCard = () => {
 
                 <Grid item xs={12} style={{marginTop: "32px"}}>
                     <Button
+                        id="facebookLoginButton"
                         sx={{
                             color: "#737373",
                             fontSize: 13,
@@ -284,7 +285,7 @@ const LoginCard = () => {
                             />
                         }
                         onClick={() => {
-                            // loginWithFacebook();
+                             loginWithFacebook();
                         }}
                     >
                         Login with Facebook
