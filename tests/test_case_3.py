@@ -20,14 +20,23 @@ driver.find_element(By.ID, 'facebookLoginButton').click()
 time.sleep(3)
 driver.switch_to.window(driver.window_handles[1])
 
-driver.find_element(By.ID, 'email').send_keys("isabella_mupjfra_alghdgagegfaj@tfbnw.net")
+driver.find_element(By.ID, 'email').send_keys(
+    "isabella_mupjfra_alghdgagegfaj@tfbnw.net")
 driver.find_element(By.ID, 'pass').send_keys("cs458project")
 
 driver.find_element(By.ID, 'loginbutton').click()
 time.sleep(3)
-driver.find_element(By.XPATH, "//div[@aria-label='Continue as Isabella']").click()
+driver.find_element(
+    By.XPATH,
+    "//div[@aria-label='Continue as Isabella']").click()
 
 driver.switch_to.window(driver.window_handles[0])
 
 time.sleep(3)
-assert driver.find_element(By.ID, 'notistack-snackbar').text == 'Login successful! Welcome, Isabella Alghdgagegfaj'
+try:
+    assert driver.find_element(
+        By.ID,
+        'notistack-snackbar').text == 'Login successful! Welcome, Isabella Alghdgagegfaj'
+    print("Test is passed")
+except AssertionError:
+    print("Test is failed")

@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -17,5 +19,10 @@ driver.find_element(By.XPATH, "//li[@data-flag-key='flag_no_193']").click()
 driver.find_element(By.ID, 'password').send_keys('qwerty123')
 
 driver.find_element(By.ID, 'signInButton').click()
-
-assert driver.find_element(By.ID, 'notistack-snackbar').text == 'Login successful!'
+time.sleep(2)
+try:
+    assert driver.find_element(
+        By.ID, 'notistack-snackbar').text == 'Login successful!'
+    print("Test is passed")
+except AssertionError:
+    print("Test is failed")
