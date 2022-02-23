@@ -5,12 +5,16 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Test Case Description --> User logs in with Facebook login for the first time (Grants permission)
+# Test Case Description --> User logs in with Facebook login but his/her data access expired
+# (Needs to grant permission again)
 # Use HTTPS in development!
 # https://create-react-app.dev/docs/using-https-in-development/
 
 s = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=s)
+options = webdriver.ChromeOptions()
+options.add_argument('--allow-insecure-localhost')  # Ignore Chrome HTTPS error
+driver = webdriver.Chrome(options=options, service=s)
+
 driver.implicitly_wait(60)
 driver.maximize_window()
 driver.get('https://localhost:3000')
@@ -28,7 +32,7 @@ driver.find_element(By.ID, 'loginbutton').click()
 time.sleep(3)
 driver.find_element(
     By.XPATH,
-    "//div[@aria-label='Continue as Isabella']").click()
+    "//div[@aria-label='Continue']").click()
 
 driver.switch_to.window(driver.window_handles[0])
 

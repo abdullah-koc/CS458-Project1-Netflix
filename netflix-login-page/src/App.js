@@ -2,8 +2,8 @@ import NetflixLogo from "./images/netflix_logo.png";
 import LoginCard from "./components/LoginCard";
 import InformationCard from "./components/InformationCard";
 import Grid from "@mui/material/Grid";
-import { useStyles } from "./styles/AppStyles";
-import { useState } from "react";
+import {useStyles} from "./styles/AppStyles";
+import {useState} from "react";
 
 function App() {
   const classes = useStyles();
@@ -20,10 +20,10 @@ function App() {
           visibility: isLogged ? "visible" : "hidden",
           alignItems: "center",
           fontSize: "50px",
-          fontWeight: "bold",
+          fontWeight: "bold"
         }}
       >
-        User looged in succesfully.
+        User logged in successfully.
       </div>
       <Grid
         container
