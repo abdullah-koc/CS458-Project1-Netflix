@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { useStyles } from "../styles/LoginCardStyles";
-import {
-  Avatar,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
+import {useStyles} from "../styles/LoginCardStyles";
+import {Avatar, Button, Checkbox, FormControlLabel, Link, Stack, Typography,} from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import { useSnackbar } from "notistack";
-import { FacebookAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { sendLoginInfoToDB } from "../services/FirebaseRemotingService";
+import {useSnackbar} from "notistack";
+import {FacebookAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
+import {sendLoginInfoToDB, sendMailOrPhoneNumberToDB} from "../services/FirebaseRemotingService";
 
 const LoginCard = ({ passLoginInfo }) => {
   const classes = useStyles();
@@ -87,22 +79,44 @@ const LoginCard = ({ passLoginInfo }) => {
 
   const loginWithFirebase = async () => {
     sendLoginInfoToDB(mailOrPhone, phoneCode, password).then(
-      (querySnapshot) => {
-        if (querySnapshot.size > 0) {
-          // login successful
-          enqueueSnackbar("Login successful!", {
-            variant: "success",
-            preventDuplicate: true,
-          });
-          passLoginInfo(true);
-        } else {
-          // wrong credentials
-          enqueueSnackbar("Login failed! Please check your credentials.", {
-            variant: "error",
-            preventDuplicate: true,
-          });
+        (querySnapshot) => {
+          if (querySnapshot.size > 0) {
+            // login successful
+            enqueueSnackbar("Login successful!", {
+              variant: "success",
+              preventDuplicate: true,
+            });
+            passLoginInfo(true);
+          } else {
+            // wrong credentials
+            sendMailOrPhoneNumberToDB(mailOrPhone, phoneCode).then(
+                (querySnapshot) => {
+                  if (querySnapshot.size > 0) {
+                    // Only password is wrong
+                    enqueueSnackbar("Incorrect password. Please try again or you can reset your password.", {
+                      variant: "error",
+                      preventDuplicate: true,
+                    });
+                  } else {
+                    // Both of them are wrong
+                    if (/^-?\d+$/.test(mailOrPhone)) {
+                      // Phone number is wrong
+                      enqueueSnackbar("Sorry, we can't find an account with this number. Please make sure to select the correct country code or sign in with email.", {
+                        variant: "error",
+                        preventDuplicate: true,
+                      });
+                    } else {
+                      // Mail is wrong
+                      enqueueSnackbar("Sorry, we can't find an account with this email address. Please try again or create a new account.", {
+                        variant: "error",
+                        preventDuplicate: true,
+                      });
+                    }
+                  }
+                }
+            )
+          }
         }
-      }
     );
   };
 

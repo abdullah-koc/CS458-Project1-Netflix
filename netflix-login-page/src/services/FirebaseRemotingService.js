@@ -21,4 +21,24 @@ const sendLoginInfoToDB = async (mailOrPhone, phoneCode, password) => {
     return getDocs(dbQuery);
 };
 
-export { sendLoginInfoToDB };
+const sendMailOrPhoneNumberToDB = async (mailOrPhone, phoneCode) => {
+    const usersRef = collection(db, "users");
+    let dbQuery;
+    let tempInfo = "";
+    let isPhone = false;
+    if (/^-?\d+$/.test(mailOrPhone)) {
+        tempInfo = phoneCode + mailOrPhone;
+        isPhone = true;
+    }
+
+    if (!isPhone) {
+        dbQuery = query(usersRef, where("mail", "==", mailOrPhone));
+    } else {
+        //send phone number information to DB (phone: tempInfo, PW: password)
+        dbQuery = query(usersRef, where("phone", "==", tempInfo));
+    }
+
+    return getDocs(dbQuery);
+};
+
+export {sendLoginInfoToDB, sendMailOrPhoneNumberToDB};
