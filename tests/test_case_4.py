@@ -21,7 +21,7 @@ time.sleep(2)
 try:
     assert driver.find_element(
         By.ID,
-        'notistack-snackbar').text == 'Login failed! Please check your credentials.'
+        'errorMessage').text == 'Incorrect password. Please try again or you can reset your password.'
     print("Test is passed")
 except AssertionError:
     print("Test is failed")

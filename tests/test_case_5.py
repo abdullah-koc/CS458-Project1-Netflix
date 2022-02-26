@@ -10,7 +10,6 @@ s = Service(ChromeDriverManager().install())
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options, service=s)
-# driver = webdriver.Chrome(service=s)
 driver.implicitly_wait(5)
 driver.maximize_window()
 driver.get('http://localhost:3000')
@@ -21,7 +20,7 @@ time.sleep(2)
 try:
     assert driver.find_element(
         By.ID,
-        'notistack-snackbar').text == 'Login failed! Please check your credentials.'
+        'errorMessage').text == "Sorry, we can't find an account with this email address. Please try again or create a new account."
     print("Test is passed")
 except AssertionError:
     print("Test is failed")
