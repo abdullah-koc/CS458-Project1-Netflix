@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
   },
   errorMessage: {
     width: "300px",
-    borderRadius: "5px",
     borderRadius: "5px",
     "@media only screen and (max-width: 800px)": {
       width: "80%",
