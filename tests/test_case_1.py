@@ -19,7 +19,7 @@ driver.find_element(By.ID, 'signInButton').click()
 time.sleep(2)
 try:
     assert driver.find_element(
-        By.ID, 'notistack-snackbar').text == 'Login successful!'
+        By.ID, 'successMessage').text == 'User logged in successfully.'
     print("Test is passed")
 except AssertionError:
     print("Test is failed")

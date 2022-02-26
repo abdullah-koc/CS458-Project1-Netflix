@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { useStyles } from "../styles/LoginCardStyles";
-import {
-  Avatar,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
+import {useStyles} from "../styles/LoginCardStyles";
+import {Avatar, Button, Checkbox, FormControlLabel, Link, Stack, Typography,} from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import { useSnackbar } from "notistack";
-import { FacebookAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import {
-  sendLoginInfoToDB,
-  sendMailOrPhoneNumberToDB,
-} from "../services/FirebaseRemotingService";
+import {useSnackbar} from "notistack";
+import {FacebookAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
+import {sendLoginInfoToDB, sendMailOrPhoneNumberToDB,} from "../services/FirebaseRemotingService";
 
 const LoginCard = ({ passLoginInfo }) => {
   const classes = useStyles();
@@ -149,7 +138,7 @@ const LoginCard = ({ passLoginInfo }) => {
         </Grid>
         <Grid item xs={12} style={{ marginTop: "10px", position: "relative" }}>
           {errorReason !== "" && (
-            <div className={classes.errorMessage}>
+            <div id="errorMessage" className={classes.errorMessage}>
               {errorReason === "wrong email"
                 ? "Sorry, we can't find an account with this email address. Please try again or create a new account."
                 : errorReason === "wrong phone number"
@@ -159,6 +148,8 @@ const LoginCard = ({ passLoginInfo }) => {
                 : ""}
             </div>
           )}
+        </Grid>
+        <Grid item xs={12} style={{ marginTop: "10px", position: "relative" }}>
           <TextField
             id="mailOrPhone"
             label="Email or phone number"

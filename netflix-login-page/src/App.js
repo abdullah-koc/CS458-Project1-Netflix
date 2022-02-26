@@ -10,21 +10,22 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   return (
     <div className={classes.bg}>
-      <div
-        style={{
-          zIndex: 1,
-          width: "100vw",
-          height: isLogged ? "100vh" : "0vh",
-          display: "flex",
-          justifyContent: "center",
-          visibility: isLogged ? "visible" : "hidden",
-          alignItems: "center",
-          fontSize: "50px",
-          fontWeight: "bold"
-        }}
-      >
-        User logged in successfully.
-      </div>
+        <div
+            id="successMessage"
+            style={{
+                zIndex: 1,
+                width: "100vw",
+                height: isLogged ? "100vh" : "0vh",
+                display: "flex",
+                justifyContent: "center",
+                visibility: isLogged ? "visible" : "hidden",
+                alignItems: "center",
+                fontSize: "50px",
+                fontWeight: "bold"
+            }}
+        >
+            User logged in successfully.
+        </div>
       <Grid
         container
         direction={"column"}
