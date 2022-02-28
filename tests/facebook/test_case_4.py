@@ -5,7 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Test Case Description --> User logs in with Facebook login for the first time (Grants permission)
+# Test Case Description --> User logs in with Facebook login after his/her token expires
+# We set this token expiration period to 1 minute, so this test user's token expires every 1 minute
 # Use HTTPS in development!
 # https://create-react-app.dev/docs/using-https-in-development/
 
@@ -24,12 +25,12 @@ WebDriverWait(driver, 10).until(EC.number_of_windows_to_be(2))
 driver.switch_to.window(driver.window_handles[1])
 
 driver.find_element(By.ID, 'email').send_keys(
-    "isabella_mupjfra_alghdgagegfaj@tfbnw.net")
+    "richard_aexumdh_alghcedhefaid@tfbnw.net")
 driver.find_element(By.ID, 'pass').send_keys("cs458project")
 driver.find_element(By.ID, 'loginbutton').click()
 driver.find_element(
     By.XPATH,
-    "//div[@aria-label='Continue as Isabella']").click()
+    "//div[@aria-label='Continue']").click()
 
 WebDriverWait(driver, 10).until(EC.number_of_windows_to_be(1))
 driver.switch_to.window(driver.window_handles[0])
@@ -37,7 +38,7 @@ driver.switch_to.window(driver.window_handles[0])
 try:
     assert driver.find_element(
         By.ID,
-        'notistack-snackbar').text == 'Login successful! Welcome, Isabella Alghdgagegfaj'
+        'notistack-snackbar').text == 'Login successful! Welcome, Richard Alghcedhefaid'
     print("Test is passed")
 except AssertionError:
     print("Test is failed")
