@@ -1,6 +1,10 @@
 # CS458-Project1-Netflix
 
-First project of CS458
+Team Members:
+- Mehmet Çalışkan
+- İlke Doğan
+- Kaan Atakan Aray
+- Muhammet Abdullah Koç
 
 Steps to run the web application:
 
@@ -10,14 +14,14 @@ npm install
 npm start
 ```
 
-Steps to run a test case:
+Steps to run a test case: (Selenium is required to run the test cases. Install it with `pip install selenium`)
 
 ```sh
 cd tests
 python3 test_case_1.py
 ```
 
-If you are going to execute the Facebook Login test cases, configure the dev server to serve pages over HTTPs.
+**NOTE\:** If you are going to execute the Facebook Login test cases, configure the dev server to serve pages over HTTPs.
 To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`:
 
 ### Windows (cmd.exe)
